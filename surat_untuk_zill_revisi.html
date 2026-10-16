@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff7f4">
+<title>A Little Letter For You 💌</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{--pink:#f4a9b8;--deep:#c84e70;--cream:#fff8f2;--ink:#583743}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;background:radial-gradient(circle at top,#fff0f3,var(--cream) 58%);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+.page{min-height:100svh;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 22px;animation:appear .7s ease both}
+.page.active{display:flex}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+h1,h2{font-family:'Playfair Display',serif;font-weight:500}
+h1{font-size:clamp(32px,9vw,48px);margin:14px 0}
+h2{font-size:clamp(27px,7vw,38px);margin:14px 0}
+p{line-height:1.85;font-size:15px;max-width:350px}
+button{font:inherit;cursor:pointer;border:0;-webkit-tap-highlight-color:transparent}
+.primary{background:var(--deep);color:white;padding:14px 27px;border-radius:30px;box-shadow:0 8px 24px #c84e7030;transition:.2s}
+.primary:active{transform:scale(.96)}
+.eyebrow{letter-spacing:3px;text-transform:uppercase;color:var(--deep);font-size:10px;font-weight:700}
+.envelope{width:190px;height:160px;position:relative;margin:26px 0;cursor:pointer;filter:drop-shadow(0 12px 12px #bd637126);transition:transform .3s}
+.envelope:active{transform:scale(.97)}
+.env-body{position:absolute;inset:32px 0 0;background:#f5a9bb;border-radius:12px;overflow:hidden}
+.env-body:before,.env-body:after{content:'';position:absolute;bottom:0;width:0;height:0;border-style:solid}
+.env-body:before{left:0;border-width:0 95px 100px 0;border-color:transparent transparent #ed91a8 transparent}
+.env-body:after{right:0;border-width:100px 95px 0 0;border-color:#f8bdc9 transparent transparent transparent}
+.env-flap{position:absolute;top:32px;left:0;width:0;height:0;border-left:95px solid transparent;border-right:95px solid transparent;border-top:78px solid #e77e9a;transform-origin:top;transition:transform .6s;z-index:3}
+.heart-seal{position:absolute;top:66px;left:69px;z-index:4;font-size:48px;transition:.4s}
+.letter{position:absolute;z-index:2;left:12px;right:12px;top:42px;height:96px;background:#fffdfb;border-radius:5px;display:grid;place-items:center;color:var(--deep);font-size:13px;transition:transform .7s}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:0}
+.envelope.open .heart-seal{transform:scale(0);opacity:0}
+.envelope.open .letter{transform:translateY(-65px)}
+.hint{color:#aa7c88;font-size:12px;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.45}}
+.note{width:min(100%,360px);padding:27px 23px;background:#fffdfb;border:1px solid #f5d9df;border-radius:8px;box-shadow:0 15px 50px #a45b6b10}
+.note .symbol{font-size:26px;color:var(--deep)}
+.note p{margin:12px auto}
+.buttons{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:22px;min-height:60px;width:100%;max-width:350px}
+#noBtn{background:white;color:#9a6777;border:1px solid #f0d1da;border-radius:30px;padding:14px 26px;transition:left .15s,top .15s}
+#yesBtn{min-width:100px}
+.question-heart{font-size:53px;animation:heartbeat 1.5s infinite}
+@keyframes heartbeat{50%{transform:scale(1.1)}}
+#garden{width:100%;max-width:390px;height:285px;position:relative;margin:8px auto 0;overflow:hidden}
+.flower{position:absolute;bottom:17px;width:100px;height:230px;cursor:pointer;transform-origin:bottom center;animation:sway 3s ease-in-out infinite alternate}
+.flower:nth-child(1){left:2%;animation-delay:-.7s}.flower:nth-child(2){left:calc(50% - 50px);animation-delay:-1.4s}.flower:nth-child(3){right:2%;animation-delay:-.2s}
+@keyframes sway{from{rotate:-4deg}to{rotate:4deg}}
+.stem{position:absolute;bottom:0;left:48px;width:4px;height:155px;background:linear-gradient(#74a77c,#3d7953);border-radius:10px;transform:scaleY(0);transform-origin:bottom;animation:grow 1.4s ease-out forwards}
+@keyframes grow{to{transform:scaleY(1)}}
+.leaf{position:absolute;width:30px;height:14px;background:#6b9c72;border-radius:100% 0 100% 0}
+.leaf.left{left:20px;bottom:75px;transform:rotate(25deg)}.leaf.right{right:18px;bottom:105px;transform:rotate(-30deg) scaleX(-1)}
+.bloom{position:absolute;left:22px;bottom:137px;width:56px;height:56px;transform:scale(0);animation:bloom 1s cubic-bezier(.2,1.5,.5,1) forwards;animation-delay:.9s}
+@keyframes bloom{to{transform:scale(1)}}
+.petal{position:absolute;left:19px;top:0;width:19px;height:29px;border-radius:50%;background:#f3a3bc;transform-origin:9px 28px}
+.petal:nth-child(1){transform:rotate(0deg)}.petal:nth-child(2){transform:rotate(45deg)}.petal:nth-child(3){transform:rotate(90deg)}.petal:nth-child(4){transform:rotate(135deg)}.petal:nth-child(5){transform:rotate(180deg)}.petal:nth-child(6){transform:rotate(225deg)}.petal:nth-child(7){transform:rotate(270deg)}.petal:nth-child(8){transform:rotate(315deg)}
+.center{position:absolute;width:17px;height:17px;background:#e8b955;border-radius:50%;left:19px;top:19px;z-index:2}
+.flower:nth-child(2) .petal{background:#dca5df}.flower:nth-child(3) .petal{background:#f6c8a5}
+.flower:active .bloom{animation:spin .6s ease}
+@keyframes spin{to{transform:scale(1.2) rotate(30deg)}}
+#gardenHint,.small{color:#aa7c88;font-size:12px}
+#flowerMessage{min-height:28px;color:var(--deep);font-size:14px}
+.floating{position:fixed;bottom:-30px;pointer-events:none;z-index:10;animation:floatUp 4s linear forwards}
+@keyframes floatUp{to{transform:translateY(-110vh) rotate(35deg);opacity:0}}
+.confetti{position:fixed;top:-20px;z-index:20;pointer-events:none;animation:fall 3.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:.1}}
+@media(max-height:650px){.page{padding-top:18px;padding-bottom:18px}.envelope{margin:15px 0}#garden{height:235px}.flower{transform:scale(.85);transform-origin:bottom center}}
+</style>
+</head>
+<body>
+<section class="page active" id="page1">
+  
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Buka amplop cinta">
+    <div class="env-body"></div><div class="letter">coba buka ♡</div><div class="env-flap"></div><div class="heart-seal">♥️</div>
+  </div>
+  <h1>Hii zilll</h1>
+  <p class="hint">♡ buka di lovenya ♡</p>
+  <button class="primary" id="openBtn">Coba buka 💌</button>
+</section>
+
+<section class="page" id="page2">
+  
+  <div class="note">
+    <div class="symbol">♡</div>
+    <h2>Hii zilll,</h2>
+    <p>Aku bingung mulai teko endi tapi kayae iki kesempatan sg ga datang 2x (asline plan b se iki) hihihi.</p>
+    <p>Ono siji hal sg pingin tak omongno cuma e grng kesampean. Akhir-akhir iki aku jujur wmuu sg garai aku semangat sekolah. Aku suka caramu jdi dirimu sendirii dann aku pingin ngenal wmuu lebihh deket lagi.</p>
+    <p>Jadi aku ndue 1 pertanyaan. Mohon dijawab dengan sesuai dan benar ahahahah 💗</p>
+    <p>Rodo curhat nde kne titik gaopo lah yh, aku asline iki mau niate ngajak wmuu metu dan pingin surprise in wmu tpi berhubung wmuu kenek tipes dan aku ga mungkin ngejak wmuu metu dalam kondisi loroo ga tegoo akuuu wkwkwk.</p>
+    <p>Oiyh sory yh aku sek ngirim website iki, grng iso se effort iku. Disisi lain aku yh pingin nunjukno effort ku cuma iki mau wmuu loro e yowess lah yahh yoopo mane, seisooku lahhh hehehe.</p>
+  </div>
+  <button class="primary" style="margin-top:24px" onclick="showPage(3)">Lanjutan →</button>
+</section>
+
+<section class="page" id="page3">
+  <div class="question-heart">💗</div>
+  <div class="eyebrow">one little question</div>
+  <h2>Will you be<br>my girlfriend?</h2>
+  <p>Nek wmuu gelem jawabb ikii makasiii yh aku bakalan senenggg pollll tapi dimohon jawab dengan jujurr yhh petttt aku yh pingin tau perasaanmu jugaaa seee nek ws di pencet opsine ngko kabari aku nde wa yhhh pettt 💗</p>
+  <div class="buttons" id="buttons">
+    <button class="primary" id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 🙈</button>
+  </div>
+</section>
+
+<section class="page" id="page4">
+  <h2>YAY! It's a yes! 🥹</h2>
+  <p>Terima kasih udah kasih aku kesempatan. Semoga kita bisa saling mengenal, saling menjaga, dan bikin banyak cerita baik bareng-bareng. ♡</p>
+  <p>Kabarii aku nde WA yh, ss ae 💗</p>
+  <div id="garden" aria-label="Bunga interaktif">
+    <div class="flower" data-msg="Bunga pertama buat senyummu 🌷"><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div><div class="bloom"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="center"></i></div></div>
+    <div class="flower" data-msg="Bunga kedua buat hari-hari baik kita 🌸"><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div><div class="bloom"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="center"></i></div></div>
+    <div class="flower" data-msg="Bunga ketiga, spesial buat kamu 🌼"><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div><div class="bloom"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="center"></i></div></div>
+  </div>
+  <p id="flowerMessage"></p>
+  <button class="primary" onclick="celebrate()">More flowers! ✿</button>
+</section>
+
+<script>
+const pages = [...document.querySelectorAll('.page')];
+function showPage(n){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===4) celebrate();
+}
+const envelope=document.getElementById('envelope');
+let opened=false;
+function openLetter(){
+  if(opened)return;
+  opened=true;
+  envelope.classList.add('open');
+  document.getElementById('openBtn').textContent='Buka suratnya ♡';
+  setTimeout(()=>showPage(2),900);
+}
+document.getElementById('openBtn').addEventListener('click',openLetter);
+envelope.addEventListener('click',openLetter);
+envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter()}});
+
+const noBtn=document.getElementById('noBtn');
+let noCount=0;
+function dodgeNo(){
+  noCount++;
+  const messages=['Hehe, yakin? 🙈','Coba lagi 😳','Yah, hampir! 💨','Tombolnya malu 😭'];
+  noBtn.textContent=messages[(noCount-1)%messages.length];
+  const area=document.getElementById('buttons');
+  const maxX=Math.max(0,area.clientWidth-noBtn.offsetWidth);
+  const maxY=90;
+  noBtn.style.position='relative';
+  noBtn.style.left=(Math.random()*Math.min(maxX,100)-Math.min(maxX,100)/2)+'px';
+  noBtn.style.top=(Math.random()*maxY-maxY/2)+'px';
+  if(noCount>=5) noBtn.textContent='masih bisa dipilih kok 🙈';
+}
+noBtn.addEventListener('pointerenter',dodgeNo);
+noBtn.addEventListener('click',dodgeNo);
+noBtn.addEventListener('touchstart',e=>{e.preventDefault();dodgeNo()},{passive:false});
+document.getElementById('yesBtn').addEventListener('click',()=>showPage(4));
+
+document.querySelectorAll('.flower').forEach(f=>{
+  f.addEventListener('click',()=>{
+    document.getElementById('flowerMessage').textContent=f.dataset.msg;
+    f.querySelector('.bloom').animate([{transform:'scale(1) rotate(0)'},{transform:'scale(1.25) rotate(18deg)'},{transform:'scale(1) rotate(0)'}],{duration:500});
+    for(let i=0;i<5;i++) floatHeart();
+  });
+});
+function floatHeart(){
+  const el=document.createElement('span');
+  el.className='floating';el.textContent=['♡','♥️','✿','✨'][Math.floor(Math.random()*4)];
+  el.style.left=Math.random()*95+'vw';el.style.fontSize=(16+Math.random()*20)+'px';
+  el.style.color=['#d95f83','#ed9cb3','#d5a3d8'][Math.floor(Math.random()*3)];
+  document.body.appendChild(el);setTimeout(()=>el.remove(),4200);
+}
+function celebrate(){
+  for(let i=0;i<24;i++){
+    const el=document.createElement('span');el.className='confetti';
+    el.textContent=['♥️','✿','♡','✨'][Math.floor(Math.random()*4)];
+    el.style.left=Math.random()*100+'vw';
+    el.style.fontSize=(14+Math.random()*18)+'px';
+    el.style.color=['#d95f83','#ed9cb3','#d5a3d8','#e8b955'][Math.floor(Math.random()*4)];
+    el.style.animationDelay=Math.random()*.9+'s';
+    document.body.appendChild(el);setTimeout(()=>el.remove(),4500);
+  }
+}
+</script>
+</body>
+</html>
